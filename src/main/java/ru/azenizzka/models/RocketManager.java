@@ -23,19 +23,17 @@ public class RocketManager {
 
 
 	private static HttpRequest getRequest(AuthData authData, String endPoint, Map<String, String> queryParameters) {
-		HttpRequest.Builder request = HttpRequest.newBuilder()
-				.uri(URI.create(authData.rocketURI() + endPoint))
-				.GET()
-				.header("X-Auth-Token", authData.authToken())
-				.header("X-User-Id", authData.userId());
-
-		if (!queryParameters.isEmpty()) {
-			String queryString = queryParameters.entrySet()
-					.stream()
-					.map(e -> e.getKey() + "=" + e.getValue())
-					.collect(Collectors.joining("&"));
-			request.uri(URI.create(request.build().uri().toString() + "?" + queryString));
-		}
+		HttpRequest.Builder request = HttpRequest.newBuilder();
+//				.uri(URI.create(authData.getRocketURI() + endPoint))
+//				.GET().header("X-Auth-Token", authData.getAuthToken()).header("X-User-Id", authData.getUserId());
+//
+//		if (!queryParameters.isEmpty()) {
+//			String queryString = queryParameters.entrySet()
+//					.stream()
+//					.map(e -> e.getKey() + "=" + e.getValue())
+//					.collect(Collectors.joining("&"));
+//			request.uri(URI.create(request.build().uri().toString() + "?" + queryString));
+//		}
 
 		return request.build();
 	}
@@ -43,13 +41,6 @@ public class RocketManager {
 	private static HttpRequest getRequest(AuthData authData, String endPoint) {
 		return getRequest(authData, endPoint, Map.of());
 	}
-
-	//	private static String getJson(AuthData authData, String endPoint, Map<String, String> queryParameters) throws IOException, InterruptedException {
-	//		HttpClient client = HttpClient.newHttpClient();
-	//		HttpResponse<String> response = client.send(getRequest(authData, endPoint, queryParameters), HttpResponse.BodyHandlers.ofString());
-	//
-	//		return response.body();
-	//	}
 
 	private static String getJson(AuthData authData, String endPoint) throws IOException, InterruptedException {
 		HttpClient client = HttpClient.newHttpClient();

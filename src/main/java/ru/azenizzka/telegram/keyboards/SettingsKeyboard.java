@@ -8,19 +8,20 @@ import ru.azenizzka.configuration.MessagesConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainKeyboard {
+public class SettingsKeyboard {
 	public static void addKeyboard(SendMessage message) {
 		ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 		List<KeyboardRow> keyboard = new ArrayList<>();
-	 	KeyboardRow row = new KeyboardRow();
+		KeyboardRow row = new KeyboardRow();
 
-		row.add(MessagesConfig.TRACKING_COMMAND);
+		row.add(MessagesConfig.ADD_ROOM_COMMAND);
+		row.add(MessagesConfig.ALL_ROOMS_COMMAND);
+
 		keyboard.add(row);
-
-
 		row = new KeyboardRow();
 
-		row.add(MessagesConfig.SETTINGS_COMMAND);
+		row.add(MessagesConfig.RETURN_COMMAND);
+
 		keyboard.add(row);
 
 		keyboardMarkup.setResizeKeyboard(true);

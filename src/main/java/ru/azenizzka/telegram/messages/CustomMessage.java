@@ -4,6 +4,7 @@ package ru.azenizzka.telegram.messages;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.azenizzka.telegram.keyboards.KeyboardType;
 import ru.azenizzka.telegram.keyboards.MainKeyboard;
+import ru.azenizzka.telegram.keyboards.SettingsKeyboard;
 
 public class CustomMessage extends SendMessage {
 	public CustomMessage(String chatId, KeyboardType keyboardType) {
@@ -11,6 +12,7 @@ public class CustomMessage extends SendMessage {
 
 		switch (keyboardType) {
 			case MAIN -> MainKeyboard.addKeyboard(this);
+			case SETTINGS -> SettingsKeyboard.addKeyboard(this);
 		}
 	}
 

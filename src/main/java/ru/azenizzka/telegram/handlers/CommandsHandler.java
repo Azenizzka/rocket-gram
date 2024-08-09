@@ -5,8 +5,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.azenizzka.configuration.MessagesConfig;
 import ru.azenizzka.entities.Person;
-import ru.azenizzka.telegram.commands.Command;
-import ru.azenizzka.telegram.commands.GetAllRoomsCommand;
+import ru.azenizzka.telegram.commands.*;
 import ru.azenizzka.telegram.messages.ErrorMessage;
 
 import java.util.ArrayList;
@@ -16,10 +15,12 @@ import java.util.List;
 public class CommandsHandler implements Handler{
 	private final List<Command> commands;
 
-	public CommandsHandler(GetAllRoomsCommand getAllRoomsCommand) {
+	public CommandsHandler(SettingsCommand settingsCommand, ReturnCommand returnCommand, TrackingCommand trackingCommand) {
 		this.commands = new ArrayList<>();
 
-		commands.add(getAllRoomsCommand);
+		commands.add(settingsCommand);
+		commands.add(returnCommand);
+		commands.add(trackingCommand);
 	}
 
 	@Override

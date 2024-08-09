@@ -24,9 +24,9 @@ public class ChooseRoomHandler implements Handler {
 
 	@Override
 	public List<SendMessage> handle(Update update, Person person) {
-		SendMessage message = new CustomMessage(person.getChatId(), KeyboardType.MAIN);
+		SendMessage message = new CustomMessage(person.getChatId(), KeyboardType.SETTINGS);
 
-		person.setInputType(InputType.MAIN);
+		person.setInputType(InputType.SETTINGS);
 
 		String choosedRoom = update.getMessage().getText().toLowerCase();
 		try {
@@ -35,9 +35,15 @@ public class ChooseRoomHandler implements Handler {
 			boolean isRoomFound = false;
 			for (Room room : rooms) {
 				if (room.getName().toLowerCase().equals(choosedRoom)) {
-					person.getTrackedRooms().add(room);
-					message.setText("✅ Вы успешно выбрали " + room.getName());
 					isRoomFound = true;
+
+					if (person.getTrackedRooms().contains(room)) {
+						message.setText("❌ Теперь вы больше не отслеживаете *" + room.getName() + "*");
+						person.getTrackedRooms().remove(room);
+					} else {
+						message.setText("✅ Теперь вы отслеживаете *" + room.getName() + "*");
+						person.getTrackedRooms().add(room);
+					}
 				}
 			}
 

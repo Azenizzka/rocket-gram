@@ -1,19 +1,18 @@
 package ru.azenizzka.entities;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import ru.azenizzka.telegram.handlers.InputType;
 
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 
 @Entity
 public class Person {
@@ -21,13 +20,11 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	// telegram
 	private String chatId;
-	private String username;
+	private String name;
 	private boolean isAdmin;
 	private InputType inputType;
 
-	// rocket
 	@Embedded
 	private AuthData authData;
 

@@ -1,26 +1,28 @@
 package ru.azenizzka;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.azenizzka.telegram.TelegramBot;
 
-/**
- * Hello world!
- */
 @SpringBootApplication
 public class App {
+	public static TelegramBot telegramBot;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JsonProcessingException {
+//		WSClient webSocketClient = new WSClient();
+//		webSocketClient.connect("wss://rocketchat-mag-august-24.21-school.ru/websocket");
+//
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		ObjectNode rootNode = objectMapper.createObjectNode();
+//		rootNode.put("msg", "connect");
+//		rootNode.put("version", "1");
+//		rootNode.putArray("support").add("1");
+
+//		String json = objectMapper.writeValueAsString(rootNode).replace('\\', ' ');
+
+//		webSocketClient.sendMessage(objectMapper.writeValueAsString(rootNode));
+
 		SpringApplication.run(App.class, args);
 	}
-
-//	public static void main(String[] args) throws IOException, InterruptedException {
-//		RocketManager rocketManager = new RocketManager();
-//		List<Room> rooms = rocketManager.getRooms(authData);
-////
-//		for (Room room : rooms) {
-////			System.out.println(room.getId() + " " + room.getName());
-//		}
-//
-//		System.out.println(rooms.get(6).getName());
-//	}
 }

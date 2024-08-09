@@ -9,6 +9,10 @@ import lombok.*;
 @Setter
 @Entity
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+
+@ToString
 public class Room {
 	@SerializedName("_id")
 	@Id
