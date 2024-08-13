@@ -4,6 +4,11 @@ public class MessagesConfig {
 	public static final String ADD_ROOM_COMMAND = "/добавить_комнату";
 	public static final String ALL_ROOMS_COMMAND = "/комнаты";
 
+	public static final String CHANGE_RC_SERVER_COMMAND = "/сменить_сервер";
+	public static final String CHANGE_USERNAME_COMMAND = "/сменить_логин";
+	public static final String CHANGE_PASSWORD_COMMAND = "/сменить_пароль";
+
+
 	public static final String TRACKING_COMMAND = "/отслеживание";
 	public static final String ENABLED_TRACKING_MESSAGE = "Вы начали отслеживание каналов";
 	public static final String DISABLED_TRACKING_MESSAGE = "Вы прекратили отслеживание каналов";

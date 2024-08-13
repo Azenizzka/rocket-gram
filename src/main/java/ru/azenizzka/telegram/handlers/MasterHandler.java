@@ -19,13 +19,20 @@ public class MasterHandler implements Handler {
 	private final ChooseRoomHandler chooseRoomHandler;
 	private final SettingsHandler settingsHandler;
 
+	private final ChangePasswordHandler changePasswordHandler;
+	private final ChangeRcServerHandler changeRcServerHandler;
+	private final ChangeUsernameHandler changeUsernameHandler;
+
 	private final TelegramBotConfiguration configuration;
 
-	public MasterHandler(AuditLogHandler auditLogHandler, CommandsHandler commandsHandler1, ChooseRoomHandler chooseRoomHandler, SettingsHandler settingsHandler, TelegramBotConfiguration configuration) {
+	public MasterHandler(AuditLogHandler auditLogHandler, CommandsHandler commandsHandler1, ChooseRoomHandler chooseRoomHandler, SettingsHandler settingsHandler, ChangePasswordHandler changePasswordHandler, ChangeRcServerHandler changeRcServerHandler, ChangeUsernameHandler changeUsernameHandler, TelegramBotConfiguration configuration) {
 		this.auditLogHandler = auditLogHandler;
 		this.commandsHandler = commandsHandler1;
 		this.chooseRoomHandler = chooseRoomHandler;
 		this.settingsHandler = settingsHandler;
+		this.changePasswordHandler = changePasswordHandler;
+		this.changeRcServerHandler = changeRcServerHandler;
+		this.changeUsernameHandler = changeUsernameHandler;
 		this.configuration = configuration;
 	}
 
@@ -45,6 +52,9 @@ public class MasterHandler implements Handler {
 			case MAIN -> messages.addAll(commandsHandler.handle(update, person));
 			case CHOOSE_ROOM -> messages.addAll(chooseRoomHandler.handle(update, person));
 			case SETTINGS -> messages.addAll(settingsHandler.handle(update, person));
+			case CHANGE_PASSWORD -> messages.addAll(changePasswordHandler.handle(update, person));
+			case CHANGE_RC_SERVER -> messages.addAll(changeRcServerHandler.handle(update, person));
+			case CHANGE_USERNAME -> messages.addAll(changeUsernameHandler.handle(update, person));
 		}
 
 

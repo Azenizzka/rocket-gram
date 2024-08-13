@@ -1,5 +1,6 @@
 package ru.azenizzka.telegram;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,12 +10,10 @@ import ru.azenizzka.App;
 import ru.azenizzka.configuration.TelegramBotConfiguration;
 import ru.azenizzka.entities.AuthData;
 import ru.azenizzka.entities.Person;
-import ru.azenizzka.entities.Room;
 import ru.azenizzka.services.PersonService;
 import ru.azenizzka.telegram.handlers.InputType;
 import ru.azenizzka.telegram.handlers.MasterHandler;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -41,6 +40,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 	}
 
 	@Override
+	@Transactional
 	public void onUpdateReceived(Update update) {
 		new Thread(() -> {
 			if (update.hasMessage() && update.getMessage().hasText()) {
@@ -48,16 +48,10 @@ public class TelegramBot extends TelegramLongPollingBot {
 				String username = update.getMessage().getChat().getUserName();
 				Person person;
 
+
 				if (!personService.isExistsByChatId(chatId)) {
 					person = new Person();
 					person.setAuthData(new AuthData());
-
-					person.getAuthData().setRocketURI("wss://rocketchat-mag-august-24.21-school.ru/websocket");
-					person.getAuthData().setUsername("laurinea");
-					person.getAuthData().setPasswordHash("1839a0b62162e25aee644fa7ff562090a33467db05d133134910a0fe35f543ae");
-
-					person.setTrackedRooms(new HashSet<>());
-					person.getTrackedRooms().add(new Room("66a7b346c7fe32a6ac23d21f", "support"));
 
 					person.setChatId(chatId);
 					person.setName(username);

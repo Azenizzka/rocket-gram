@@ -20,6 +20,13 @@ public class SettingsKeyboard {
 		keyboard.add(row);
 		row = new KeyboardRow();
 
+		row.add(MessagesConfig.CHANGE_USERNAME_COMMAND);
+		row.add(MessagesConfig.CHANGE_PASSWORD_COMMAND);
+		row.add(MessagesConfig.CHANGE_RC_SERVER_COMMAND);
+
+		keyboard.add(row);
+		row = new KeyboardRow();
+
 		row.add(MessagesConfig.RETURN_COMMAND);
 
 		keyboard.add(row);

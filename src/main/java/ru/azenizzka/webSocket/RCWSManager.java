@@ -2,32 +2,48 @@ package ru.azenizzka.webSocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Component;
+import ru.azenizzka.entities.AuthData;
 import ru.azenizzka.entities.Person;
+import ru.azenizzka.entities.Room;
 
 import java.util.*;
 
 @Component
 public class RCWSManager {
-	private final Map<Person, RCWSConnection> connections;
+	private final Map<AuthData, RCWSConnection> connections = new HashMap<>();
 
-	public RCWSManager(Map<Person, RCWSConnection> connections) {
-		this.connections = connections;
+	public RCWSConnection getConnection(Person person) throws JsonProcessingException {
+		establishConnection(person);
+		return connections.get(person.getAuthData());
 	}
 
-	public boolean establishConnection(Person person) throws JsonProcessingException {
-		RCWSConnection connection;
+	public boolean isConnectionExists(AuthData authData) {
+		return connections.containsKey(authData);
+	}
 
-		if (!connections.containsKey(person)) {
-			connection = new RCWSConnection(person);
-			connections.put(person, connection);
+	public void establishConnection(Person person) throws JsonProcessingException {
+		if (!isConnectionExists(person.getAuthData())) {
+			connections.put(person.getAuthData(), new RCWSConnection(person));
 		}
 
-		connection = connections.get(person);
-		connection.connect();
+		RCWSConnection connection = connections.get(person.getAuthData());
+
+		if (!connection.isConnected())
+			connection.connect();
+
+		System.out.println("connections: " + connections.size());
+
+	}
+
+	public void subscribeToStream(Person person) throws JsonProcessingException {
+		RCWSConnection connection;
+
+		connection = connections.get(person.getAuthData());
+
 		connection.subscribeToStream();
+	}
 
-
-
-		return connection.isConnected();
+	public void updateAllRooms(Person person) throws JsonProcessingException {
+		getConnection(person).updateAllRooms();
 	}
 }

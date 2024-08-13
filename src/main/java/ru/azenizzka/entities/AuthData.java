@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthData {
-	private String rocketURI;
-	private String username;
-	private String passwordHash;
+	private String rocketURI = "";
+	private String username = "";
+	private String passwordHash = "";
 }

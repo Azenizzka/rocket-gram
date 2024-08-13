@@ -5,9 +5,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.azenizzka.configuration.MessagesConfig;
 import ru.azenizzka.entities.Person;
-import ru.azenizzka.telegram.commands.AddRoomCommand;
+import ru.azenizzka.telegram.commands.settingsCommands.*;
 import ru.azenizzka.telegram.commands.Command;
-import ru.azenizzka.telegram.commands.GetAllRoomsCommand;
 import ru.azenizzka.telegram.messages.ErrorMessage;
 
 import java.util.ArrayList;
@@ -17,11 +16,14 @@ import java.util.List;
 public class SettingsHandler implements Handler {
 	private final List<Command> commands;
 
-	public SettingsHandler(AddRoomCommand addRoomCommand, GetAllRoomsCommand getAllRoomsCommand) {
+	public SettingsHandler(AddRoomCommand addRoomCommand, GetAllRoomsCommand getAllRoomsCommand, ChangeUsernameCommand changeUsernameCommand, ChangeRcServerCommand changeRcServerCommand, ChangePasswordCommand changePasswordCommand) {
 		this.commands = new ArrayList<>();
 
 		commands.add(addRoomCommand);
 		commands.add(getAllRoomsCommand);
+		commands.add(changeRcServerCommand);
+		commands.add(changePasswordCommand);
+		commands.add(changeUsernameCommand);
 	}
 
 	@Override

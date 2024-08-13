@@ -1,13 +1,15 @@
 package ru.azenizzka.webSocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ru.azenizzka.entities.AuthData;
 import ru.azenizzka.entities.Person;
 import ru.azenizzka.entities.Room;
+import ru.azenizzka.telegram.commands.Command;
 import ru.azenizzka.webSocket.sendingMessages.AuthUserJson;
 import ru.azenizzka.webSocket.sendingMessages.ConnectJson;
-import ru.azenizzka.webSocket.sendingMessages.PingJson;
+import ru.azenizzka.webSocket.sendingMessages.GetAllRoomsJson;
 import ru.azenizzka.webSocket.sendingMessages.SubscribeToRoomMessagesJson;
+
+import java.util.List;
 
 public class RCWSConnection {
 	private final Person person;
@@ -18,16 +20,19 @@ public class RCWSConnection {
 		this.client = new WSClient(new RCWSHandler(person));
 	}
 
-	public boolean isConnected() throws JsonProcessingException {
-		client.sendJson(new PingJson().toJson());
-		return false;
+	// TODO:
+	public boolean isConnected() {
+		return client.isConnected();
+	}
+
+	public void updateAllRooms() throws JsonProcessingException {
+		client.sendJson(new GetAllRoomsJson(person.getAuthData()).toJson());
 	}
 
 	public void subscribeToStream() throws JsonProcessingException {
 		for (Room room : person.getTrackedRooms()) {
-			System.out.println(room);
+			System.out.println("subscribe to " + room);
 			String json = new SubscribeToRoomMessagesJson(person.getAuthData(), room).toJson();
-			System.out.println("maybe json: " + json);
 			client.sendJson(json);
 		}
 	}
@@ -41,5 +46,12 @@ public class RCWSConnection {
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void disconnect() {
+		if (!isConnected())
+			return;
+
+		client.disconnect();
 	}
 }

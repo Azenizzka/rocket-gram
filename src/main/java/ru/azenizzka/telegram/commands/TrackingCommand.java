@@ -15,10 +15,10 @@ import java.util.List;
 
 @Component
 public class TrackingCommand implements Command {
-	private final RCWSManager RCWSManager;
+	private final RCWSManager rcwsManager;
 
-	public TrackingCommand(RCWSManager RCWSManager) {
-		this.RCWSManager = RCWSManager;
+	public TrackingCommand(RCWSManager rcwsManager) {
+		this.rcwsManager = rcwsManager;
 	}
 
 	@Override
@@ -36,7 +36,10 @@ public class TrackingCommand implements Command {
 		SendMessage message = new CustomMessage(person.getChatId(), KeyboardType.MAIN);
 
 		try {
-			message.setText(RCWSManager.establishConnection(person) ? MessagesConfig.ENABLED_TRACKING_MESSAGE : MessagesConfig.DISABLED_TRACKING_MESSAGE);
+			rcwsManager.establishConnection(person);
+			rcwsManager.subscribeToStream(person);
+
+			message.setText(MessagesConfig.ENABLED_TRACKING_MESSAGE);
 		} catch (JsonProcessingException e) {
 			message = new ErrorMessage(person.getChatId(), e.getMessage());
 		}

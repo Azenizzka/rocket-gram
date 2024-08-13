@@ -1,10 +1,8 @@
 package ru.azenizzka.entities;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.apache.commons.lang3.builder.EqualsExclude;
 import ru.azenizzka.telegram.handlers.InputType;
 
 import java.util.Set;
@@ -13,11 +11,13 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 
 @Entity
 public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private int id;
 
 	private String chatId;
@@ -30,4 +30,7 @@ public class Person {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Room> trackedRooms;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Room> allRooms;
 }

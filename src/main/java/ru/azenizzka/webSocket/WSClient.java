@@ -36,12 +36,12 @@ public class WSClient {
 
 	@OnError
 	public void onError(Throwable t) {
-		System.out.println("WebSocket error: " + t.getMessage());
+//		System.out.println("WebSocket error: " + t.getMessage());
 	}
 
 	@OnClose
 	public void onClose(CloseReason reason) {
-		System.out.println("WebSocket connection closed: " + reason.getReasonPhrase());
+//		System.out.println("WebSocket connection closed: " + reason.getReasonPhrase());
 	}
 
 	public void connect(String url) {
@@ -55,7 +55,7 @@ public class WSClient {
 	}
 
 	public void sendJson(String json) {
-		System.out.println("json to send: " + json);
+//		System.out.println("json to send: " + json);
 
 		if (session == null || !session.isOpen())
 			throw new IllegalStateException("WebSocket session is not open");
@@ -76,6 +76,10 @@ public class WSClient {
 		} catch (Exception e) {
 			throw new RuntimeException("WebSocket disconnection failed", e);
 		}
+	}
+
+	public boolean isConnected() {
+		return session != null;
 	}
 
 
